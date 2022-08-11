@@ -5,22 +5,23 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     [SerializeField] private PlayerInputActions playerInputActions;
-    private float mouseSensitivity = 20f;
+
+    private float mouseSensitivity = 10f;
     private Vector2 mouseLook;
     private float xRotation = 0f;
+
     [SerializeField] private Transform playerbody;
-    // Start is called before the first frame update
+
 
     private void Start()
     {
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerbody = transform.parent;
-
+        //Fazendo cursor do mouse desaparecer da tela.
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
         LookScene();
@@ -28,11 +29,14 @@ public class MouseLook : MonoBehaviour
 
     public void LookScene()
     {
+        //Lendo o input do mouse.
         mouseLook = playerInputActions.Player.MouseRotation.ReadValue<Vector2>();
 
+        //sensibilidade (pode ser alterada conforme o jogador)
         float mouseX = mouseLook.x * mouseSensitivity * Time.deltaTime;
         float mouseY = mouseLook.y * mouseSensitivity * Time.deltaTime;
 
+        //calculo de rotacao
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90);
 

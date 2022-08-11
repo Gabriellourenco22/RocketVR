@@ -13,6 +13,7 @@ public class ButtonController : MonoBehaviour
     [SerializeField] private int waitTimer = 1;
     [SerializeField] private bool pauseInteraction = false;
 
+    //Faz uma pausa para que de tempo de finalizar a animaçao toda antes de inciar a proxima.
     private IEnumerator PauseJumpInteracation()
     {
         jump = false;
@@ -22,6 +23,7 @@ public class ButtonController : MonoBehaviour
         jumpAnim.SetBool("JumpActive", false);
     }
 
+    //Faz acontecer a animação do Robo.
     public void PlayAnimation()
     {
         if(!jump && !pauseInteraction)

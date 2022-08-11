@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartAnimationButton : MonoBehaviour
+public class RaycastCamera : MonoBehaviour
 {
 
     [SerializeField] private int rayLenght = 3;
@@ -17,6 +17,7 @@ public class StartAnimationButton : MonoBehaviour
 
     [SerializeField] private Image crosshair = null;
     private bool isCrosshairActive;
+
     private bool doOnce;
 
     private const string interactableTag = "StartButton";
@@ -25,8 +26,6 @@ public class StartAnimationButton : MonoBehaviour
     {
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
-
-        
     }
 
     private void Update()
@@ -34,6 +33,7 @@ public class StartAnimationButton : MonoBehaviour
         PressButton();
     }
 
+    //Funcao responsavel por fazer o botao interativo. Utilizando raycast para detectar a "colisao".
     void PressButton()
     {
         RaycastHit hit;
@@ -68,9 +68,7 @@ public class StartAnimationButton : MonoBehaviour
         }
     }
 
-
-
-
+    //Mudança de cor da CrossHair quando esta em cima do botão.
     void CrosshairChange(bool on)
     {
         if(on && !doOnce)

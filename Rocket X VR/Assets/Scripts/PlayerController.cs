@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PlayerInputActions playerInputActions;
+
     private Vector2 move;
     private CharacterController controller;
 
@@ -30,26 +31,32 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerInputActions = new PlayerInputActions();
+
+        //obrigatorio colocar para utilizar o novo sistema de input da Unity
         playerInputActions.Player.Enable();
         controller = GetComponent<CharacterController>();
     }
 
     private void FixedUpdate()
     {
+
         PlayerMovement();
         Grav();
     }
 
     private void PlayerMovement()
     {
+        //pegando as teclas que farao o player andar
         move = playerInputActions.Player.Movement.ReadValue<Vector2>();
 
+        //adicionando força e calculando a dirençao quando apertadas as teclas.
         Vector3 movement = (move.y * transform.forward) + (move.x * transform.right);
         controller.Move(movement * speed * Time.deltaTime);
     }
 
     private void Grav()
     {
+        //Gravidade para o player nao bugar quando colidir com outro objeto (Não estou usando o Rigibody que contem a gravidade por este motivo, fiz a função)
         isGrounded = Physics.CheckSphere(ground.position, distanceToGround, groundMask);
 
         if(isGrounded && velocity.y <0)
